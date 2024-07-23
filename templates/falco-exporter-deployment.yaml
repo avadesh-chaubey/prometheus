@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: falco-exporter
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: falco-exporter
+  template:
+    metadata:
+      labels:
+        app: falco-exporter
+    spec:
+      containers:
+        - name: falco-exporter
+          image: falcosecurity/falco-exporter
+          ports:
+            - containerPort: 9376
+          volumeMounts:
+            - name: config
+              mountPath: /etc/falco-exporter
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: falco-exporter-config

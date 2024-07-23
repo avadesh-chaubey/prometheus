@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: falco-exporter-config
+  namespace: default
+data:
+  falco-exporter.yaml: |
+    web_listen_address: 0.0.0.0:9376
+    web_telemetry_path: /metrics
+    falco_unix_socket_path: /var/run/falco.sock
